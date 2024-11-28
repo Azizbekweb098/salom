@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Salom;
+use App\Models\Todo;
 use Illuminate\Http\Request;
 
-class SalomsController extends Controller
+class TodoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,19 @@ class SalomsController extends Controller
      */
     public function index()
     {
-        $salom = Salom::all();
-        return response()->json($salom);
+        $todo = Todo::all();
+
+        return response()->json($todo);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -36,6 +47,17 @@ class SalomsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
         //
     }
