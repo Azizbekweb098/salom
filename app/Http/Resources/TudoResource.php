@@ -17,11 +17,11 @@ class TudoResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'category' => $this->category->name,
+            'category_id' => $this->category->name,
             'name' => $this->name,
             'text' => $this->text,
             'created_at' => $this->created_at,
-          
+
 
         ];
     }

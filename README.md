@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://i.scdn.co/image/ab6761610000e5eb570eed1b9b853f5e87ab3363" width="400" alt="Laravel Logo"></a></p>
 
 
 ## About Laravel
@@ -24,5 +24,30 @@ Bu loyihamda qanqa apilar bor
 .
 
 6 - tu-do-lit | http://127.0.0.1:8000/api/tudo | tu do list lar 
+
+yana search - category lar bilan tudo list lar qidirish uchun ,
+
+http://127.0.0.1:8000/api/category_search ,
+.
+http://127.0.0.1:8000/api/tudo_search , 
+
+.
+
+nuqta loyiha tugadi 
+
+agar siz buni db-diagramasini top moq chi bolsangiz  
+
+telegram kanalga qoshiling 
+
+
+https://t.me/vel_laravel_uz ,
+
+. 
+
+fayl ni topish 
+
+#dbtudolist 
+
+
 
 

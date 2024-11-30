@@ -9,6 +9,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TudoController;
+use App\Http\Controllers\TudoSearchController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -44,5 +45,9 @@ Route::resource('tudo', TudoController::class);
 // Todo end
 
 // search start
-Route::resource('search', SearchController::class);
+Route::resource('category_search', SearchController::class);
 // search end
+// search start
+Route::resource('tudo_search', TudoSearchController::class);
+// search end
+
