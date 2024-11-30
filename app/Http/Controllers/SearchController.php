@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Todo;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Resources\CategoryResource;
 
-class TodoController extends Controller
+class SearchController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $todo = Todo::all();
+    $search = $request->query('search');
 
-        return response()->json($todo);
+    if($search){
+        $categorys = Category::where('name', 'LIKE', "%$search%")->get();
+
+        if(!$categorys){
+            return response()->json(['xat' => 'Topilmadi']);
+        }
+       return response()->json(CategoryResource::collection($categorys));
+    }
+    return response(CategoryResource::collection(Category::all()));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -47,17 +47,6 @@ class TodoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

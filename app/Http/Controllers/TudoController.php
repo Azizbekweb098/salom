@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\TudoResource;
 use Illuminate\Http\Request;
+use App\Models\Todo;
 
-
-class CategoryController extends Controller
+class TudoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response(CategoryResource::collection(Category::all()));
-    }
+        
+       return response(TudoResource::collection(Todo::all()));
 
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -30,7 +30,11 @@ class CategoryController extends Controller
     {
         $requestData = $request->all();
 
-        Category::create($requestData);
+        if(!$requestData){
+            return response()->json(['xat' => 'xatolik']);
+        }
+
+        Todo::create($requestData);
 
         return response()->json($requestData);
     }
@@ -43,14 +47,13 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::find($id);
+        $tudo = Todo::find($id);
 
-      if(!$category)
-      {
-        return response()->json(['xabar' => 'topilmadi']);
-      }
+        if(!$tudo){
+            return response()->json($tudo);
+        }
 
-        return response()->json($category);
+        return response()->json($tudo);
     }
 
     /**
@@ -62,14 +65,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::find($id);
+        $todo = Todo::find($id);
+        if ($todo) {
+            $todo->update($request->all());
+        }
+        $todo->update($request->all());
 
-if(!$category){
-    return response()->json('xato');
-}
-
-        $category->update($request->all());
-
+        return response()->json(['xat' => 'mufaqiyatli yaratildi']);
 
     }
 
@@ -81,12 +83,11 @@ if(!$category){
      */
     public function destroy($id)
     {
+        $requestData = Todo::find($id);
 
-$category = Category::find($id);
-if(!$category){
-    return response()->json('xato');
-}
-$category->delete();
-
+        if($requestData){
+            $requestData->delete();
+        }
+        return response()->json(['xat' => 'mufaqiyatli ochirildi']);
     }
 }

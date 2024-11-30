@@ -10,10 +10,11 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'todo_id'];
 
-    protected function todos(){
-        return $this->belongsToMany(Todo::class);
+    public function todos()
+    {
+        return $this->hasMany(Todo::class, 'category_id');
     }
 
 }
