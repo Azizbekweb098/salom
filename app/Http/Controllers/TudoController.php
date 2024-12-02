@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TudoResource;
-use Illuminate\Http\Request;
+use App\Jobs\SendTodoNotification;
 use App\Models\Todo;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class TudoController extends Controller
 {
@@ -15,7 +17,6 @@ class TudoController extends Controller
      */
     public function index()
     {
-        
        return response(TudoResource::collection(Todo::all()));
 
     }
@@ -28,15 +29,22 @@ class TudoController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData = $request->all();
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'text' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'due_time' => 'required|date|after:now',
+        ]);
 
-        if(!$requestData){
-            return response()->json(['xat' => 'xatolik']);
-        }
+        $todo = Todo::create($data);
 
-        Todo::create($requestData);
+        // Jobni queueni yuborish
+        $sendAt = Carbon::parse($todo->due_time);
+        $delay = $sendAt->diffInSeconds(now());
 
-        return response()->json($requestData);
+        SendTodoNotification::dispatch($todo)->delay(now()->addSeconds($delay));
+
+        return response()->json($todo, 201);
     }
 
     /**
